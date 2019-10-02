@@ -217,6 +217,13 @@ objects:
         - args:
           - "-log-level=info"
           - "--insecure-tls"
+          env:
+          - name: HTTP_PROXY
+            value: "${HTTP_PROXY}"
+          - name: HTTPS_PROXY
+            value: "${HTTP_PROXY}"
+          - name: NO_PROXY
+            value: "${NO_PROXY}"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -339,6 +346,10 @@ parameters:
   description: Amount of Memory PostgreSQL should dedicate to Shared Buffers
   required: true
   value: 12MB
+- name: HTTP_PROXY
+# value: "http://squid.example.com:3128/"
+- name: NO_PROXY
+  value: "*.cluster.local,*.local"
 - name: POSTGRES_ADMIN_PASSWORD
   description: Clair PostgreSQL Admin service account password
   displayName: Clair PostgreSQL Admin Password
