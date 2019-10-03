@@ -218,11 +218,11 @@ objects:
           - "-log-level=info"
           - "--insecure-tls"
           env:
-          - name: HTTP_PROXY
+          - name: http_proxy
             value: "${HTTP_PROXY}"
-          - name: HTTPS_PROXY
+          - name: https_proxY
             value: "${HTTP_PROXY}"
-          - name: NO_PROXY
+          - name: no_proxy
             value: "${NO_PROXY}"
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -313,7 +313,7 @@ parameters:
   description: CoreOS Clair Image Tag
   displayName: CoreOS Clair Image tag
   required: true
-  value: latest
+  value: v2.0.9
 - name: CLAIR_MEMORY_LIMIT
   description: Maximum amount of memory a Clair app container can use
   displayName: Clair Memory Limit
