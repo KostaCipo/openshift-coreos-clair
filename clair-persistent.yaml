@@ -158,6 +158,9 @@ objects:
             limits:
               cpu: "${CLAIR_POSTGRES_CPU_LIMIT}"
               memory: "${CLAIR_POSTGRES_MEMORY_LIMIT}"
+            requests:
+              cpu: "${CLAIR_POSTGRES_CPU_REQUEST}"
+              memory: "${CLAIR_POSTGRES_MEMORY_REQUEST}"
           volumeMounts:
           - name: data
             mountPath: /var/lib/pgsql/data
@@ -232,7 +235,7 @@ objects:
             value: "${HTTP_PROXY}"
           - name: https_proxy
             value: "${HTTP_PROXY}"
-          - name: no_proxY
+          - name: no_proxy
             value: "${NO_PROXY}"
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -318,7 +321,7 @@ parameters:
   description: Requested amount of CPU by Clair app container
   displayName: Clair CPU Request
   required: true
-  value: 100m
+  value: 50m
 - name: CLAIR_IMAGE_TAG
   description: CoreOS Clair Image Tag
   displayName: CoreOS Clair Image tag
@@ -340,7 +343,12 @@ parameters:
   description: Maximum amount of CPU a Clair database container can use
   displayName: Clair Postgres CPU Limit
   required: true
-  value: 500m
+  value: 200m
+- name: CLAIR_POSTGRES_CPU_REQUEST
+  description: Reserved amount of CPU a Clair database container can use
+  displayName: Clair Postgres CPU Request
+  required: true
+  value: 50m
 - name: CLAIR_POSTGRES_MAX_CONNECTIONS
   description: Maximum amount of connections PostgreSQL should accept
   displayName: Maximum Postgres Connections
@@ -351,6 +359,11 @@ parameters:
   displayName: Clair Postgres Memory Limit
   required: true
   value: 768Mi
+- name: CLAIR_POSTGRES_MEMORY_REQUEST
+  description: Reserved amount of memory a Clair database container can use
+  displayName: Clair Postgres Memory Request
+  required: true
+  value: 128Mi
 - name: CLAIR_POSTGRES_SHARED_BUFFERS
   displayName: Postgres Shared Buffer Amount
   description: Amount of Memory PostgreSQL should dedicate to Shared Buffers
